@@ -1,0 +1,24 @@
+
+
+q1f1a :: [Int] -> [Int]
+q1f1a (x:xs) | x >= 3 and x<=10 = x*3 : q1f1a xs
+q1f1a _=[]
+
+
+q1f1b :: [Int] -> [Int]
+q1f1b xs ={v*3 for v in xs if v < 3 || v>10}
+    
+
+subsets :: [Int] -> [[Int]]
+subsets [] =  [ [] ]
+subsets x:xs =  (subsets xs)++(x:(subsets xs))
+
+
+pascal :: Int -> [Int] 
+pascal 1 =[1]
+pascal n =MyZip (last1:0) (0:last1)
+          where last1=Pascal (n-1)
+
+myZip :: [Int]->[Int]->[Int]
+myZip x:xs y:ys =(x+y):MyZip xs ys
+myZip _ _ =[]
