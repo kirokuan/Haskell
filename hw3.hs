@@ -1,7 +1,3 @@
-Type Name = String
-   data Expr =  Var Name | Lit Int | Expr :+: Expr | Expr :*: Expr
-                 deriving (Eq, Show)
-
 
 data Tree a = Empty | Node a (Tree a) (Tree a) 
                                    	deriving Show
@@ -24,12 +20,14 @@ data Proposition = Var String
                     deriving (Eq, Ord, Show)
 
 isNorm :: Proposition -> Bool
-isNorm T =False
-isNorm F =False
+isNorm T =True
+isNorm F =True
+isNorm (Var _) =True
+isNorm (Not(a :|: b))=False
+isNorm (Not(a :&: b))=False
 isNorm (Not a)=True
-isNorm (_ :|: _)=True
-isNorm (_ :&: _)=True
-
+isNorm (a :|: b) = isNorm a && isNorm b 
+isNorm (a :&: b) = isNorm a && isNorm b 
 
 norm :: Proposition -> Proposition
 norm (Not T) = F
@@ -37,9 +35,6 @@ norm (Not F) = T
 norm (Not (Not b)) = b
 norm (Not (p :|: q)) = Not p :&: Not q
 norm (Not (p :&: q)) = Not p :|: Not q
-
---reverse :: Proposition -> Proposition
---reverse Not T = F
 
 data Edit = Change Char | Copy | Delete | Insert Char 
                                          deriving (Eq, Show)
