@@ -28,5 +28,5 @@ rev :: Proposition -> Proposition
 rev T = F
 rev F = T
 rev (Not p)= p
-rev (p :|: q) = norm (Not p) :&: norm (Not q)
-rev (p :&: q) = norm (Not p) :|: norm (Not q)
+rev (p :|: q) = Not p :&: Not q
+rev (p :&: q) = Not p :|: Not q
